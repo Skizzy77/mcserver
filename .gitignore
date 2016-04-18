@@ -1,3 +1,5 @@
 # ServerKernel gitignore file
 .idea
 ServerKernel.iml
+out
+bukkit*.jar
