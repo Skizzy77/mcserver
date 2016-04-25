@@ -1,0 +1,23 @@
+Global Volatile Namespace Hierarchy \
+	| KernelObjects \
+		| ObjectManager
+		| UserManager
+		| YamlManager
+		| 
+
+Global Namespace Hierarchy \
+	| Logging \
+		| Format -> "%ident%.%compname% [%level%]: %msg%"
+		| DebugLevel -> 1
+	| Resources \
+		| KernelName -> "MCKernel"
+		| Owner -> ArrayList<String>{"fffaf","_Broadwell"}
+	| Permissions -> ["Guest", "Privileged", "Developer", "Owner"]
+	| Commands \
+		| AFK \
+			| Permission -> -1 (all)
+Kernel module registry in Volatile Namespace \
+	| Object
+	| Resources \
+		| <options>
+	
