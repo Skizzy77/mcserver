@@ -18,14 +18,18 @@ Global Namespace Hierarchy \
 	| Manager \
 	    | YAML \
 	        | ModuleFolder -> String "Managers/YAML/Modules/"
+	    | User \
+	        | NSVolatilePrototype -> HashMap<String, Object>
 	| Permissions -> ["Guest", "Privileged", "Developer", "Owner"]
 	| Commands \
 		| AFK \
 			| Permission -> -1 (all)
+	| NSVolatile \
+	    | Prototype -> HashMap<String, Object>
+	| Users -> ArrayList<HashMap<String, Object>>
 
 Kernel module registry in Volatile Namespace \
 	| Resources \
 		| <options>
-	| Events \
-	    | <objects with wait/notifyAll>
+	| Events -> Event
 	

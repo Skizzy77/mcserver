@@ -1,56 +1,31 @@
 package com.broaderator.mcserver.kernel.yaml;
 
-import com.broaderator.mcserver.kernel.$;
 import com.broaderator.mcserver.kernel.Logger;
+import com.broaderator.mcserver.kernel.loader.LoadPriority;
+import com.broaderator.mcserver.kernel.loader.LoadPriorityLevel;
 import com.broaderator.mcserver.kernelbase.Manager;
 
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class YAMLManager {
-    private static final Path moduleDir = Paths.get((String) $.globalNS.get("Resources.WorkingDirectory"),
-            (String) $.globalNS.get("Manager.YAML.ModuleFolder"));
-    private static List<YAMLModule> modules = new ArrayList<>();
+    private static final String nsRoot = "Manager.YAML";
+    private static List<YAMLModule<?>> modules = Arrays.asList(
+            new LocationMod(),
+            new UserMod()
+    );
     public static final Manager yamlMan = new Manager() {
         @Override
+        @LoadPriority(level = LoadPriorityLevel.EMPTY)
         public boolean spawn() {
-            Logger.info(this, "Loading external modules");
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(moduleDir)) {
-                for (Path file : stream) {
-                    if (file.getFileName().endsWith(".mod")) {
-                        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file.toFile()));
-                        Object mod = ois.readObject();
-                        if (!(mod instanceof YAMLModule)) {
-                            Logger.warn(this, "Invalid module: " + file.getFileName() + ", type not YAMLModule");
-                        } else {
-                            modules.add((YAMLModule) mod);
-                            Logger.debug(this, "Module added: " + file.getFileName(), $.DL_DETAILS);
-                        }
-                        ois.close();
-                    } else {
-                        Logger.info(this, "Unknown file: " + file.getFileName() + ", ignoring");
-                    }
-                }
-                Logger.debug(this, "Module count: " + modules.size(), $.DL_INFO);
-                Logger.info(this, "External module load complete");
-                return true;
-            } catch (Exception e) {
-                Logger.error(this, "Directory listing or File I/O failure: " + e);
-                e.printStackTrace();
-                return false;
-            }
+            return true;
         }
 
         @Override
+        @LoadPriority(level = LoadPriorityLevel.EMPTY)
         public boolean die() {
             modules.clear();
             return true;
@@ -66,7 +41,10 @@ public class YAMLManager {
             String.class,
             ArrayList.class,
             HashMap.class,
-            Integer.class
+            Integer.class,
+            Boolean.class,
+            Long.class,
+            Character.class
     );
 
     public static boolean isValid(Object obj) {
@@ -80,10 +58,19 @@ public class YAMLManager {
 
     public static Object toRepresentation(Object input) {
         if (isValid(input)) return input;
-        for (YAMLModule ym : modules) {
-            try {
-                return ym.toYAML(input);
-            } catch (Exception e) {
+        for (YAMLModule module : modules) {
+            if (module.getType().isInstance(input)) {
+                return module.toYAML(input);
+            }
+        }
+        Logger.warn(yamlMan, "Failed to convert YAML-incompatible object: " + input);
+        return null;
+    }
+
+    public static Object fromRepresentation(HashMap<String, Object> input, Class<?> destClass) {
+        for (YAMLModule module : modules) {
+            if (module.getType().equals(destClass) || module.getType() == destClass) {
+                return module.fromYAML(input);
             }
         }
         return null;

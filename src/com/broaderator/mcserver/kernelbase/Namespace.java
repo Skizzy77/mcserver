@@ -1,6 +1,5 @@
 package com.broaderator.mcserver.kernelbase;
 
-import com.broaderator.mcserver.kernel.Logger;
 import com.broaderator.mcserver.kernel.yaml.YAMLManager;
 import org.bukkit.Bukkit;
 
@@ -15,6 +14,12 @@ public class Namespace implements KernelObject{
     public Namespace(String ident, boolean toFile) {
         identifier = ident;
         tofile = toFile;
+    }
+
+    public Namespace(String ident, boolean toFile, HashMap<String, Object> prototype) {
+        identifier = ident;
+        tofile = toFile;
+        storage = prototype;
     }
 
     public boolean createDirs(String direxp){
@@ -58,12 +63,12 @@ public class Namespace implements KernelObject{
         String[] idents = direxp.split("\\.");
         HashMap<String, Object> context = getContext(idents);
         if (context == null) {
-            Logger.warn(this, "Failed to locate context '" + direxp + "'");
+            Bukkit.getLogger().warning("KernelInternalError::Failed to locate context '" + direxp + "'");
             return false;
         }
         Object value = YAMLManager.toRepresentation(newValue);
         if (value == null && tofile) {
-            Logger.warn(this, "Yaml incompatible object: " + newValue);
+            Bukkit.getLogger().warning("KernelInternalError::Yaml incompatible object: " + newValue);
             return false;
         }
         context.put(idents[idents.length - 1], value);
