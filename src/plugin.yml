@@ -1,0 +1,8 @@
+main: com.broaderator.mcserver.kernelcore.BukkitPlugin
+version: 0.01
+name: ServerKernel
+
+commands:
+  khelp:
+    usage: /khelp [topic]
+    description: Obtains help regarding ServerKernel.

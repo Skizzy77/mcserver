@@ -7,6 +7,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class Namespace implements KernelObject{
+    public static String joinPath(String... paths) {
+        String output = "";
+        for (String path : paths) {
+            output += path;
+            if (!output.endsWith(".")) output += ".";
+        }
+        return output.substring(0, output.length() - 1);
+    }
+
     public HashMap<String, Object> storage = new HashMap<>();
     private String identifier;
     private boolean tofile;
@@ -46,7 +55,7 @@ public class Namespace implements KernelObject{
             }else{
                 if(!(newPointer instanceof HashMap)){
                     Bukkit.getLogger().warning("KernelInternalError::Expression parse error, expected HashMap, received " +
-                            newPointer.getClass().getSimpleName());
+                            (newPointer == null ? "null" : newPointer.getClass().getSimpleName()));
                     return null;
                 }
             }
@@ -92,4 +101,5 @@ public class Namespace implements KernelObject{
     public String getComponentName() {
         return "Namespace." + identifier;
     }
+
 }

@@ -35,6 +35,11 @@ public class YAMLManager {
         public String getComponentName() {
             return "YAMLManager";
         }
+
+        @Override
+        public boolean execute(String cmd) {
+            return false;
+        }
     };
 
     static final List<Class<? extends Serializable>> validClasses = Arrays.asList(
