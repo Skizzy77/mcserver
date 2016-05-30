@@ -1,6 +1,5 @@
-package com.broaderator.mcserver.kernel;
+package com.broaderator.mcserver.kernelcore;
 
-import com.broaderator.mcserver.kernelbase.KernelObject;
 import org.bukkit.Bukkit;
 
 public class Logger {

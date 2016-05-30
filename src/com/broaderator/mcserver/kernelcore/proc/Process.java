@@ -1,8 +1,8 @@
-package com.broaderator.mcserver.kernel.proc;
+package com.broaderator.mcserver.kernelcore.proc;
 
-import com.broaderator.mcserver.kernel.$;
-import com.broaderator.mcserver.kernel.Logger;
-import com.broaderator.mcserver.kernelbase.KernelObject;
+import com.broaderator.mcserver.kernelcore.$;
+import com.broaderator.mcserver.kernelcore.Logger;
+import com.broaderator.mcserver.kernelcore.KernelObject;
 import com.broaderator.mcserver.kernelcore.util.StringFormat;
 
 

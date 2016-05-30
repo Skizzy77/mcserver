@@ -1,18 +1,18 @@
-package com.broaderator.mcserver.kernel.proc;
+package com.broaderator.mcserver.kernelcore.proc;
 
-import com.broaderator.mcserver.kernel.$;
-import com.broaderator.mcserver.kernel.Logger;
-import com.broaderator.mcserver.kernelbase.KernelObject;
+import com.broaderator.mcserver.kernelcore.$;
+import com.broaderator.mcserver.kernelcore.Logger;
+import com.broaderator.mcserver.kernelcore.KernelObject;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class QueueProcess extends Process {
     private int status;
-    private Processor processor;
+    private Processor<Object> processor;
     private Object wait = new Object();
     private ConcurrentLinkedQueue<Object> queue = new ConcurrentLinkedQueue<>();
 
-    public QueueProcess(KernelObject origin, Processor processor, String name) {
+    public QueueProcess(KernelObject origin, Processor<Object> processor, String name) {
         super(origin, name);
         this.processor = processor;
     }

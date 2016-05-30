@@ -1,16 +1,16 @@
-package com.broaderator.mcserver.kernel;
+package com.broaderator.mcserver.kernelcore.user;
 
-import com.broaderator.mcserver.kernel.yaml.YAMLManager;
-import com.broaderator.mcserver.kernelbase.Namespace;
+import com.broaderator.mcserver.kernelcore.$;
+import com.broaderator.mcserver.kernelcore.Logger;
+import com.broaderator.mcserver.kernelcore.yaml.YAMLManager;
+import com.broaderator.mcserver.kernelcore.Namespace;
 import com.broaderator.mcserver.kernelcore.KMI;
 import com.broaderator.mcserver.kernelcore.ModuleAgent;
 import com.broaderator.mcserver.kernelcore.ModuleResources;
+import com.broaderator.mcserver.kernelcore.event.Event;
 import org.bukkit.OfflinePlayer;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class UserManager {
     private static final HashMap<String, Object> nsHome = (HashMap<String, Object>) $.globalNS.get("Manager.User");
@@ -57,7 +57,7 @@ public class UserManager {
 
         @Override
         public List<ModuleAgent> getDependencies() {
-            return Collections.emptyList();
+            return Collections.singletonList(YAMLManager.Ma);
         }
 
         @Override
@@ -70,8 +70,16 @@ public class UserManager {
             return true;
         }
 
+        @Override
+        public HashMap<String, Event> getEvents() {
+            return new HashMap<String, Event>() {{
+                put("AddUser", new Event());
+                put("RemoveUser", new Event());
+            }};
+        }
+
     };
-    private static ModuleResources Resources = KMI.registerModule()
+    private static ModuleResources Resources = KMI.registerModule(Ma);
 
     public static User getUser(OfflinePlayer op) {
         for (User u : users) {
@@ -80,10 +88,10 @@ public class UserManager {
             }
         }
         // Create new user
-        Logger.info(userMan, "Creating new user: " + op.getName());
+        Logger.info(Ma, "Creating new user: " + op.getName());
         User u = new User(op,
-                new Namespace(op.getName() + ".NS", true),
-                new Namespace(op.getName() + ".NSVolatile", false,
+                new Namespace(op.getName() + ".Attributes", true),
+                new Namespace(op.getName() + ".Namespace", false,
                         (HashMap<String, Object>) nsHome.get("NSVolatilePrototype")));
         users.add(u);
         return u;

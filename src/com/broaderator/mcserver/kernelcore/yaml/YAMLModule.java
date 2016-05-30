@@ -1,4 +1,4 @@
-package com.broaderator.mcserver.kernel.yaml;
+package com.broaderator.mcserver.kernelcore.yaml;
 
 import java.io.Serializable;
 import java.util.HashMap;

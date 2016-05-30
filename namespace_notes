@@ -20,14 +20,24 @@ Global Namespace Hierarchy \
 	        | ModuleFolder -> String "Managers/YAML/Modules/"
 	    | User \
 	        | NSVolatilePrototype -> HashMap<String, Object>
-	| Permissions -> ["Guest", "Privileged", "Developer", "Owner", "KernelAuthority"]
+	| Permissions -> ["Guest", "Privileged", "Developer", "Owner"]
 	| Commands \
 		| AFK \
 			| Permission -> -1 (all)
+	| NSVolatile \
+	    | Prototype -> HashMap<String, Object>
 	| Users -> ArrayList<HashMap<String, Object>>
 
 Kernel module registry in Volatile Namespace \
 	| Resources \
-		| <options>
+		| <options>: <value>
 	| Events -> Event
 	
+Kernel Module Interface features (Interface with ModuleAgent):
+- Define/access kernel Calls (global, directive in VOLATILE namespace)
+- Utilities (Hash)
+- Provided Namespace directory
+  - Attributes / Variables
+  - Events (Passing ACTION object)
+- Initscript / Exitscript
+- Dependencies

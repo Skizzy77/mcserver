@@ -1,6 +1,6 @@
-package com.broaderator.mcserver.kernel;
+package com.broaderator.mcserver.kernelcore.user;
 
-import com.broaderator.mcserver.kernelbase.Namespace;
+import com.broaderator.mcserver.kernelcore.Namespace;
 import org.bukkit.OfflinePlayer;
 
 public class User {

@@ -1,7 +1,7 @@
-package com.broaderator.mcserver.kernel.yaml;
+package com.broaderator.mcserver.kernelcore.yaml;
 
-import com.broaderator.mcserver.kernel.User;
-import com.broaderator.mcserver.kernelbase.Namespace;
+import com.broaderator.mcserver.kernelcore.user.User;
+import com.broaderator.mcserver.kernelcore.Namespace;
 import org.bukkit.Bukkit;
 
 import java.util.HashMap;

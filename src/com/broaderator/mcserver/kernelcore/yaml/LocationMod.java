@@ -1,4 +1,4 @@
-package com.broaderator.mcserver.kernel.yaml;
+package com.broaderator.mcserver.kernelcore.yaml;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

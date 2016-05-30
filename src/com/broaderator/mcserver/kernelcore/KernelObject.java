@@ -1,4 +1,4 @@
-package com.broaderator.mcserver.kernelbase;
+package com.broaderator.mcserver.kernelcore;
 
 public interface KernelObject {
     String getComponentName();

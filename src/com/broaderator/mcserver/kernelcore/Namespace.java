@@ -1,12 +1,12 @@
-package com.broaderator.mcserver.kernelbase;
+package com.broaderator.mcserver.kernelcore;
 
-import com.broaderator.mcserver.kernel.yaml.YAMLManager;
+import com.broaderator.mcserver.kernelcore.yaml.YAMLManager;
 import org.bukkit.Bukkit;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Namespace implements KernelObject{
+public class Namespace implements KernelObject {
     public static String joinPath(String... paths) {
         String output = "";
         for (String path : paths) {

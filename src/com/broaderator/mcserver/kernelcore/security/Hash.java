@@ -1,6 +1,6 @@
 package com.broaderator.mcserver.kernelcore.security;
 
-import com.broaderator.mcserver.kernel._;
+import com.broaderator.mcserver.kernelcore._;
 
 import java.util.Random;
 

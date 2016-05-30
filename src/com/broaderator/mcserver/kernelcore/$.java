@@ -1,6 +1,6 @@
-package com.broaderator.mcserver.kernel;
+package com.broaderator.mcserver.kernelcore;
 
-import com.broaderator.mcserver.kernelbase.Namespace;
+import com.broaderator.mcserver.kernelcore.Namespace;
 
 /**
  * Shorthand class for global common items, such as <code>GlobalNamespace</code>.

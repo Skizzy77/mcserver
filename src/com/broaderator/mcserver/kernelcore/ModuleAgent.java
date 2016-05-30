@@ -1,7 +1,8 @@
 package com.broaderator.mcserver.kernelcore;
 
-import com.broaderator.mcserver.kernelbase.KernelObject;
+import com.broaderator.mcserver.kernelcore.event.Event;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ModuleAgent extends KernelObject {
@@ -14,4 +15,6 @@ public interface ModuleAgent extends KernelObject {
     boolean useVariables();
 
     boolean useEvents();
+
+    HashMap<String, Event> getEvents();
 }

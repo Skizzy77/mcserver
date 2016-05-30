@@ -1,4 +1,4 @@
-package com.broaderator.mcserver.kernel;
+package com.broaderator.mcserver.kernelcore;
 
 import java.util.Random;
 
