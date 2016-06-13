@@ -1,7 +1,10 @@
 package com.broaderator.mcserver.kernelcore.loader;
 
-public class Initializer {
-    public static void initializeKernel() {
+import com.broaderator.mcserver.kernelcore.$;
 
+public class Initializer {
+
+    public static void initializeKernel() {
+        $.globalVolNS.put("KernelInitialized", false);
     }
 }

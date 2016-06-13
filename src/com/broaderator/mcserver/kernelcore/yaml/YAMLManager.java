@@ -1,18 +1,13 @@
 package com.broaderator.mcserver.kernelcore.yaml;
 
-import com.broaderator.mcserver.kernelcore.KMI;
-import com.broaderator.mcserver.kernelcore.Logger;
-import com.broaderator.mcserver.kernel.loader.LoadPriority;
-import com.broaderator.mcserver.kernel.loader.LoadPriorityLevel;
-import com.broaderator.mcserver.kernelcore.ModuleAgent;
-import com.broaderator.mcserver.kernelcore.ModuleResources;
+import com.broaderator.mcserver.kernelcore.*;
 import com.broaderator.mcserver.kernelcore.event.Action;
 import com.broaderator.mcserver.kernelcore.event.Event;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class YAMLManager {
+public class YAMLManager extends Module{
     private static final String nsRoot = "Manager.YAML";
     private static List<YAMLModule<?>> modules = Arrays.asList(
             new LocationMod(),
@@ -61,7 +56,7 @@ public class YAMLManager {
 
 
     };
-    static final ModuleResources mr = KMI.registerModule(Ma);
+    private static final ModuleResources mr = KMI.registerModule(Ma);
 
     private static final List<Class<? extends Serializable>> validClasses = Arrays.asList(
             String.class,

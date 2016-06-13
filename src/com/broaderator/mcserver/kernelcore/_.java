@@ -1,5 +1,6 @@
 package com.broaderator.mcserver.kernelcore;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class _ {
@@ -16,5 +17,14 @@ public class _ {
             output += String.format("%02x", b);
         }
         return output;
+    }
+
+    public static HashMap<String, Object> createHashmap(Object... param){
+        assert param.length % 2 == 0;
+        HashMap<String, Object> hmap = new HashMap<>();
+        for(int i = 0; i < param.length; i+=2){
+            hmap.put((String) param[i], param[i+1]);
+        }
+        return hmap;
     }
 }

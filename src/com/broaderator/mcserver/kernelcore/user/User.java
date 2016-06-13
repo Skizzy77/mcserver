@@ -1,9 +1,10 @@
 package com.broaderator.mcserver.kernelcore.user;
 
+import com.broaderator.mcserver.kernelcore.KernelObject;
 import com.broaderator.mcserver.kernelcore.Namespace;
 import org.bukkit.OfflinePlayer;
 
-public class User {
+public class User implements KernelObject{
     private OfflinePlayer op;
     private Namespace ns;
     private Namespace nsVolatile;
@@ -40,5 +41,10 @@ public class User {
 
     public Namespace getVolatileNS() {
         return nsVolatile;
+    }
+
+    @Override
+    public String getComponentName() {
+        return op.getName();
     }
 }
