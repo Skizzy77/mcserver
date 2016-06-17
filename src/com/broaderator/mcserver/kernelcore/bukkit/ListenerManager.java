@@ -1,51 +1,19 @@
 package com.broaderator.mcserver.kernelcore.bukkit;
 
-import com.broaderator.mcserver.kernelcore.ModuleAgent;
-import com.broaderator.mcserver.kernelcore.event.Event;
+import com.broaderator.mcserver.kernelcore.moduleBase.Function;
+import com.broaderator.mcserver.kernelcore.moduleBase.Module;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
-public class ListenerManager {
-    static final ModuleAgent Ma = new ModuleAgent() {
-        @Override
-        public int init() {
-            return 0;
-        }
-
-        @Override
-        public int exit() {
-            return 0;
-        }
-
-        @Override
-        public List<ModuleAgent> getDependencies() {
-            return Collections.emptyList();
-        }
-
-        @Override
-        public boolean useVariables() {
-            return false;
-        }
-
-        @Override
-        public boolean useEvents() {
-            return false;
-        }
-
-        @Override
-        public HashMap<String, Event> getEvents() {
-            return new HashMap<String, Event>(){{
-                put("PlayerCommandPreprocess", new Event());
-                put("PlayerDeath", new Event());
-                put("EntityDamage", new Event());
-            }};
-        }
-
-        @Override
-        public String getComponentName() {
+public class ListenerManager extends Module {
+    public final String name = "ListenerManager";
+    public final Function<Boolean> init = new Function<Boolean>() {
+        public Boolean run() {
             return null;
         }
-    }
+    };
+    public final Function<Boolean> exit = new Function<Boolean>() {
+        public Boolean run() {
+            return null;
+        }
+    };
+    public final String[] dependencies = {};
 }

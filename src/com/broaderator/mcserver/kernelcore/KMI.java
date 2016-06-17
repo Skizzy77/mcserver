@@ -16,7 +16,7 @@ public class KMI {
         } else {
             for (ModuleAgent Ma : ma.getDependencies()) {
                 if (Ma.getDependencies().contains(ma)) {
-                    Logger.error(KCResources.Object, "Recursive dependency for modules: " +
+                    Logger.error(KCResources.Object, "Recursive dependency for moduleBase: " +
                             ma.getComponentName() + ", " + Ma.getComponentName());
                     return null;
                 }
