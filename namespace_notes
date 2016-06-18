@@ -6,6 +6,9 @@ Global Volatile Namespace Hierarchy \
 	    | YAMLManager \
 	        | Resources
 	        | Events
+	| Calls \
+	    | UserValid -> Function<Boolean> (String Username)
+	    | HashCheck
 
 Global Namespace Hierarchy \
 	| Logging \
@@ -15,11 +18,9 @@ Global Namespace Hierarchy \
 		| KernelName -> "MCKernel"
 		| Owner -> ArrayList<String>{"fffaf","_Broadwell"}
 		| WorkingDirectory -> String "/home/michael/SpigotCache/plugins/ServerKernel"
-	| Manager \
-	    | YAML \
-	        | ModuleFolder -> String "Managers/YAML/Modules/"
-	    | User \
-	        | NSVolatilePrototype -> HashMap<String, Object>
+	| Modules \
+	    | UserManager \
+	        | Options -> HashMap<String, Object>
 	| Permissions -> ["Guest", "Privileged", "Developer", "Owner"]
 	| Commands \
 		| AFK \

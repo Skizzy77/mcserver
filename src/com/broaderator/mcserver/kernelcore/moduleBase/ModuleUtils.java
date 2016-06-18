@@ -9,6 +9,9 @@ import com.broaderator.mcserver.kernelcore.util.StringFormat;
 
 import java.util.HashMap;
 
+/*
+Module arguments here are declared final for explicit indication of reference-only entity.
+ */
 public class ModuleUtils {
 
     private static boolean moduleValid(final String name){
@@ -27,29 +30,46 @@ public class ModuleUtils {
             return false;
         }
         for(String str : names){
+            assert (str != null);
             Logger.debug(KCResources.Object, StringFormat.f("Inserting event for module '{0}': {1}", m.name, str), $.DL_DETAILS);
             ((HashMap<String, Object>) $.globalVolNS.getSubdirectory(getPath(m.name), "Events")).put(str, new Event(str));
         }
+        return true;
     }
 
     public static Event getEvent(final Module m, final String name){
-
+        Object ev = $.globalVolNS.getSubdirectory(getPath(m.name), "Events", name);
+        if (ev instanceof Event) {
+            return (Event) ev;
+        } else {
+            Logger.warn(KCResources.Object, StringFormat.f("Module by the name of '{0}' is trying to get a nonexistient event named '{1}'",
+                    m.name, name));
+            return null;
+        }
     }
 
-    public static boolean registerKernelCall(final Module m, Runnable run){
+    public static boolean registerKernelCall(final Module m, final Function<Object> run) {
 
     }
 
     // Attributes
-    public static Object get(final Module m, String label){
+    public static Object getAttribute(final Module m, String label) {
 
     }
 
-    public static boolean set(final Module m, String label, Object value){
+    public static boolean setAttribute(final Module m, String label, Object value) {
 
     }
 
-    public static boolean register(final Module m){
+    public static Object getOption(final Module m, String name) {
+
+    }
+
+    public static boolean addToRegisterQueue(final Module m) {
+
+    }
+
+    private static boolean register(final Module m) {
 
     }
 }
