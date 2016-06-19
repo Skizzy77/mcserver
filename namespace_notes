@@ -9,6 +9,7 @@ Global Volatile Namespace Hierarchy \
 	| Calls \
 	    | UserValid -> Function<Boolean> (String Username)
 	    | HashCheck
+	| KernelInitialized -> Boolean
 
 Global Namespace Hierarchy \
 	| Logging \

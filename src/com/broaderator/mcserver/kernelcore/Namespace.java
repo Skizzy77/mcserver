@@ -92,6 +92,10 @@ public class Namespace implements KernelObject {
         return this.get(joinPath(strs));
     }
 
+    public boolean setSubdirectory(Object obj, String... strs){
+        return this.put(joinPath(strs), obj);
+    }
+
     public boolean remove(String direxp) {
         String[] idents = direxp.split("\\.");
         HashMap<String, Object> context = getContext(idents);
