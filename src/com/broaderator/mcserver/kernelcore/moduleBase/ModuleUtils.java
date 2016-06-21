@@ -4,24 +4,31 @@ import com.broaderator.mcserver.kernelcore.*;
 import com.broaderator.mcserver.kernelcore.event.Event;
 import com.broaderator.mcserver.kernelcore.util.StringFormat;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /*
 Module arguments here are declared final for explicit indication of reference-only entity.
  */
 public class ModuleUtils {
-    private static ArrayList<Module> registerQueue = new ArrayList<>();
+    private static final boolean USE_ANTI_RECURSION = true;
+    private static List<Module> registerQueue = new LinkedList<>();
 
     private static boolean moduleValid(final String name){
         return ((HashMap<String, Object>) $.globalVolNS.get("Modules")).containsKey(name);
     }
 
-    private static boolean moduleInQueue(final String name){
+    private static Module getModuleInQueue(final String name){
         for(Module m : registerQueue){
-            if(m.name.equals(name)) return true;
+            if(m.name.equals(name)) return m;
         }
-        return false;
+        return null;
+    }
+
+    private static boolean moduleInQueue(final String name){
+        return getModuleInQueue(name) != null;
     }
 
     private static String getPath(final String moduleName){
@@ -145,14 +152,90 @@ public class ModuleUtils {
     }
 
     private static boolean register(final Module m) {
-        // check/do dependencies, then do init
-        for(String dep : m.dependencies){
-            if(moduleValid(dep)) continue;
-            if(!moduleInQueue(dep)){
-                Logger.error(KCResources.Object, StringFormat.f("Invalid dependency of module '{0}', risking registration without dependency initialization: {1}", m.name, dep));
-            }else{
-                // fixme: Not finished
+        // check/do dependencies, then do init (using trace or anti-recursion algorithm)
+        final ConcurrentLinkedQueue<String> trace;
+        final Thread trackerThread;
+        final ReentrantLock lock;
+        final LinkedList<String> stack;
+        if(!USE_ANTI_RECURSION) {
+            trace = new ConcurrentLinkedQueue<>();
+            trace.add(m.name);
+            lock = new ReentrantLock();
+            trackerThread = new Thread(new Runnable() {
+                public void run() {
+                    while(true) {
+                        try {
+                            Thread.sleep(10);
+                            if(trace.size() > 40) {
+                                String temp = "";
+                                int t = 0;
+                                Iterator<String> iterator = trace.iterator();
+                                while(t < 5){
+                                    temp += "  -> " + iterator.next() + "\n";
+                                    t++;
+                                }
+                                temp += " -> ... (" + String.valueOf(trace.size() - 5) + " items not shown)";
+                                iterator = null;
+                                Logger.warn(KCResources.Object, "Module registration recursion detected!\nStack Trace:\n" + temp);
+                                lock.lock();
+                                break;
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            },"ModuleRegistrationWatcher");
+            trackerThread.start();
+            return recurse(m.name, null, trace, lock);
+        }else{
+            stack = new LinkedList<>();
+            return recurse(m.name, stack, null, null);
+        }
+    }
+
+    private static boolean recurse(final String mname, final List<String> trace, final ConcurrentLinkedQueue<String> queue, final ReentrantLock l){
+        if(moduleValid(mname)) return true;
+        if(!moduleInQueue(mname)){
+            Logger.error(KCResources.Object, "Null module reference: " + mname);
+            return true;
+        }
+        Logger.debug
+                (KCResources.Object,
+                        StringFormat.f(
+                                "Calling recursive dependency-initialization function with args {0}, {1}, and {2}", mname, trace, queue),
+                        (short)($.DL_DETAILS+1));
+        if(USE_ANTI_RECURSION){
+            trace.add(mname);
+            for(String dep : getModuleInQueue(mname).dependencies){
+                if(queue.contains(dep) && !moduleValid(dep)){
+                    Logger.error(KCResources.Object, "Infinite recursion error! Recursion loop on module " + dep);
+                    return false;
+                }
+                if(!recurse(dep, trace, null, null)) return false;
             }
+        }else{
+            queue.offer(mname);
+            for(String dep : getModuleInQueue(mname).dependencies){
+                if(l.isLocked()) return false;
+                if(!recurse(dep, null, queue, l)) return false;
+            }
+        }
+        $.globalVolNS.createDirs(Namespace.joinPath("Modules", mname, "Resources"));
+        $.globalVolNS.createDirs(Namespace.joinPath("Modules", mname, "Events"));
+        $.globalNS.createDirs(Namespace.joinPath("Modules", mname, "Options"));
+        if(getModuleInQueue(mname).init.run()){
+            Logger.fine(KCResources.Object, "Kernel module initialized: " + mname);
+        }else{
+            Logger.error(KCResources.Object, "Kernel module initialization failure! Instability may occur: " + mname);
+        }
+        registerQueue.remove(getModuleInQueue(mname));
+        return true;
+    }
+
+    public static void init() {
+        while(registerQueue.size() > 0){
+            register(registerQueue.get(0));
         }
     }
 }
