@@ -1,21 +1,39 @@
 package com.broaderator.mcserver.kernelcore.user;
 
-import com.broaderator.mcserver.kernelcore.$;
-import com.broaderator.mcserver.kernelcore.Logger;
-import com.broaderator.mcserver.kernelcore.yaml.YAMLManager;
-import com.broaderator.mcserver.kernelcore.Namespace;
-import com.broaderator.mcserver.kernelcore.KMI;
-import com.broaderator.mcserver.kernelcore.ModuleAgent;
-import com.broaderator.mcserver.kernelcore.ModuleResources;
+import com.broaderator.mcserver.kernelcore.*;
 import com.broaderator.mcserver.kernelcore.event.Event;
+import com.broaderator.mcserver.kernelcore.moduleBase.Function;
+import com.broaderator.mcserver.kernelcore.moduleBase.Module;
+import com.broaderator.mcserver.kernelcore.yaml.YAMLManager;
 import org.bukkit.OfflinePlayer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
-public class UserManager {
+public class UserManager extends Module {
     private static final HashMap<String, Object> nsHome = (HashMap<String, Object>) $.globalNS.get("Manager.User");
     private static List<User> users = new ArrayList<>();
 
+    public final String name = "UserManager";
+    public final Function<Boolean> init = new Function<Boolean>() {
+        public Boolean run() {
+            if (!List.class.isInstance($.globalNS.get("Users"))) {
+                Logger.error(this, "'Users' type invalid in global namespace, UserManager load failure");
+                return false;
+            }
+            Logger.debug(this, "Loading users", $.DL_INFO);
+            users.clear();
+            for (HashMap<String, Object> userRep : (List<HashMap<String, Object>>) $.globalNS.get("Users")) {
+                User u = (User) YAMLManager.fromRepresentation(userRep, User.class);
+                users.add(u);
+                Logger.debug(UserManager, "Loaded existing user: " + u.asPlayer().getName(), $.DL_DETAILS);
+            }
+            Logger.debug(this, "User load complete", $.DL_INFO);
+            return true;
+        }
+    }
     public static ModuleAgent Ma = new ModuleAgent() {
 
         // Requirement: Load YAMLManager before this.

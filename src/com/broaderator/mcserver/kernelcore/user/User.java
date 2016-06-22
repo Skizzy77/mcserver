@@ -1,10 +1,10 @@
 package com.broaderator.mcserver.kernelcore.user;
 
-import com.broaderator.mcserver.kernelcore.KernelObject;
 import com.broaderator.mcserver.kernelcore.Namespace;
+import com.broaderator.mcserver.kernelcore.security.SecuredSubstance;
 import org.bukkit.OfflinePlayer;
 
-public class User implements KernelObject{
+public class User extends SecuredSubstance {
     private OfflinePlayer op;
     private Namespace ns;
     private Namespace nsVolatile;
