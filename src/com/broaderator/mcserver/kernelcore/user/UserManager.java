@@ -4,6 +4,7 @@ import com.broaderator.mcserver.kernelcore.*;
 import com.broaderator.mcserver.kernelcore.event.Event;
 import com.broaderator.mcserver.kernelcore.moduleBase.Function;
 import com.broaderator.mcserver.kernelcore.moduleBase.Module;
+import com.broaderator.mcserver.kernelcore.moduleBase.ModuleUtils;
 import com.broaderator.mcserver.kernelcore.yaml.YAMLManager;
 import org.bukkit.OfflinePlayer;
 
@@ -13,24 +14,22 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserManager extends Module {
-    private static final HashMap<String, Object> nsHome = (HashMap<String, Object>) $.globalNS.get("Manager.User");
-    private static List<User> users = new ArrayList<>();
-
     public final String name = "UserManager";
+    private static List<User> users = new ArrayList<>();
     public final Function<Boolean> init = new Function<Boolean>() {
         public Boolean run() {
             if (!List.class.isInstance($.globalNS.get("Users"))) {
-                Logger.error(this, "'Users' type invalid in global namespace, UserManager load failure");
+                Logger.error(ModuleUtils.getModule(name), "'Users' type invalid in global namespace, UserManager load failure");
                 return false;
             }
-            Logger.debug(this, "Loading users", $.DL_INFO);
+            Logger.debug(ModuleUtils.getModule(name), "Loading users", $.DL_INFO);
             users.clear();
             for (HashMap<String, Object> userRep : (List<HashMap<String, Object>>) $.globalNS.get("Users")) {
                 User u = (User) YAMLManager.fromRepresentation(userRep, User.class);
                 users.add(u);
-                Logger.debug(UserManager, "Loaded existing user: " + u.asPlayer().getName(), $.DL_DETAILS);
+                Logger.debug(ModuleUtils.getModule(name), "Loaded existing user: " + u.asPlayer().getName(), $.DL_DETAILS);
             }
-            Logger.debug(this, "User load complete", $.DL_INFO);
+            Logger.debug(ModuleUtils.getModule(name), "User load complete", $.DL_INFO);
             return true;
         }
     }

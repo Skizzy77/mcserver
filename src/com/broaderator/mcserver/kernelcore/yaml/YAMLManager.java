@@ -1,13 +1,17 @@
 package com.broaderator.mcserver.kernelcore.yaml;
 
-import com.broaderator.mcserver.kernelcore.*;
+import com.broaderator.mcserver.kernelcore.KMI;
+import com.broaderator.mcserver.kernelcore.Logger;
+import com.broaderator.mcserver.kernelcore.ModuleAgent;
+import com.broaderator.mcserver.kernelcore.ModuleResources;
 import com.broaderator.mcserver.kernelcore.event.Action;
 import com.broaderator.mcserver.kernelcore.event.Event;
+import com.broaderator.mcserver.kernelcore.moduleBase.Module;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class YAMLManager extends Module{
+public class YAMLManager extends Module {
     private static final String nsRoot = "Manager.YAML";
     private static List<YAMLModule<?>> modules = Arrays.asList(
             new LocationMod(),

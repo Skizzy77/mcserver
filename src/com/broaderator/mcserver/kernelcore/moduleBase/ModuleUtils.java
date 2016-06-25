@@ -6,7 +6,6 @@ import com.broaderator.mcserver.kernelcore.util.StringFormat;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /*
@@ -15,6 +14,7 @@ Module arguments here are declared final for explicit indication of reference-on
 public class ModuleUtils {
     private static final boolean USE_ANTI_RECURSION = true;
     private static List<Module> registerQueue = new LinkedList<>();
+    private static List<Module> modulePool = new ArrayList<>();
 
     private static boolean moduleValid(final String name){
         return ((HashMap<String, Object>) $.globalVolNS.get("Modules")).containsKey(name);
@@ -23,6 +23,19 @@ public class ModuleUtils {
     private static Module getModuleInQueue(final String name){
         for(Module m : registerQueue){
             if(m.name.equals(name)) return m;
+        }
+        return null;
+    }
+
+    public static Module getModule(String name) {
+        if (moduleInQueue(name))
+            return getModuleInQueue(name);
+        if (moduleValid(name)) {
+            for (Module m : modulePool) {
+                if (m.name.equals(name))
+                    return m;
+            }
+            Logger.error(KCResources.Object, "Unclean module initialization: " + name);
         }
         return null;
     }
@@ -230,6 +243,7 @@ public class ModuleUtils {
             Logger.error(KCResources.Object, "Kernel module initialization failure! Instability may occur: " + mname);
         }
         registerQueue.remove(getModuleInQueue(mname));
+        modulePool.add(getModuleInQueue(mname));
         return true;
     }
 
