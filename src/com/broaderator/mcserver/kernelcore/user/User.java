@@ -13,6 +13,7 @@ public class User extends SecuredSubstance {
         this.op = op;
         this.ns = ns;
         this.nsVolatile = nsVolatile;
+        this.SecurityLevel = (Integer) ns.get("Permission");
     }
 
     public Object get(String str) {
@@ -46,5 +47,10 @@ public class User extends SecuredSubstance {
     @Override
     public String getComponentName() {
         return op.getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof User && ((User) o).asPlayer().getUniqueId().equals(this.asPlayer().getUniqueId());
     }
 }

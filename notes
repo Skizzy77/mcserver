@@ -43,3 +43,9 @@ Kernel Module Interface features (Interface with ModuleAgent):
   - Events (Passing ACTION object)
 - Initscript / Exitscript
 - Dependencies
+
+Kernel call documentation:
+User GetUser(OfflinePlayer)
+  Returns: specified user, a new one if it does not exist
+  Description: Retrieves a user from the user database, maintained by UserManager.
+  Owner: UserManager

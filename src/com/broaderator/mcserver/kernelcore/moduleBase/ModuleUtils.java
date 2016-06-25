@@ -80,7 +80,7 @@ public class ModuleUtils {
         }
     }
 
-    public static boolean registerKernelCall(final Module m, final Function<Object> run, String name) {
+    public static boolean registerKernelCall(final Module m, final Function<? extends Object> run, String name) {
         if(!moduleValid(m.name)){
             Logger.error(KCResources.Object,
                     StringFormat.f(

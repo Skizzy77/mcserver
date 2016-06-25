@@ -1,116 +1,78 @@
 package com.broaderator.mcserver.kernelcore.user;
 
-import com.broaderator.mcserver.kernelcore.*;
-import com.broaderator.mcserver.kernelcore.event.Event;
+import com.broaderator.mcserver.kernelcore.$;
+import com.broaderator.mcserver.kernelcore.Logger;
+import com.broaderator.mcserver.kernelcore.Namespace;
+import com.broaderator.mcserver.kernelcore.Serializer;
 import com.broaderator.mcserver.kernelcore.moduleBase.Function;
 import com.broaderator.mcserver.kernelcore.moduleBase.Module;
 import com.broaderator.mcserver.kernelcore.moduleBase.ModuleUtils;
-import com.broaderator.mcserver.kernelcore.yaml.YAMLManager;
 import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class UserManager extends Module {
+    private final UserManager thisPointer = this;
     public final String name = "UserManager";
     private static List<User> users = new ArrayList<>();
     public final Function<Boolean> init = new Function<Boolean>() {
-        public Boolean run() {
+        public Boolean run(Object... unused) {
             if (!List.class.isInstance($.globalNS.get("Users"))) {
-                Logger.error(ModuleUtils.getModule(name), "'Users' type invalid in global namespace, UserManager load failure");
+                Logger.error(thisPointer, "'Users' type invalid in global namespace, UserManager load failure");
                 return false;
             }
-            Logger.debug(ModuleUtils.getModule(name), "Loading users", $.DL_INFO);
+            Logger.debug(thisPointer, "Loading users", $.DL_INFO);
             users.clear();
             for (HashMap<String, Object> userRep : (List<HashMap<String, Object>>) $.globalNS.get("Users")) {
-                User u = (User) YAMLManager.fromRepresentation(userRep, User.class);
+                User u = (User) Serializer.deserialize(userRep, User.class);
                 users.add(u);
-                Logger.debug(ModuleUtils.getModule(name), "Loaded existing user: " + u.asPlayer().getName(), $.DL_DETAILS);
+                Logger.debug(thisPointer, "Loaded existing user: " + u.asPlayer().getName(), $.DL_DETAILS);
             }
-            Logger.debug(ModuleUtils.getModule(name), "User load complete", $.DL_INFO);
-            return true;
-        }
-    }
-    public static ModuleAgent Ma = new ModuleAgent() {
+            Logger.debug(thisPointer, "User load complete", $.DL_INFO);
+            if (!ModuleUtils.registerKernelCall(thisPointer, new Function<User>() {
+                public User run(Object... args) {
+                    assert args[0] instanceof OfflinePlayer;
+                    final OfflinePlayer op = (OfflinePlayer) args[0];
+                    for (User u : users) {
+                        if (u.asPlayer().getUniqueId().equals(op.getUniqueId())) return u;
+                    }
+                    // Create new user
+                    Logger.fine(thisPointer, "Creating new user named " + op.getName());
+                    User u = new User(op,
+                            new Namespace(op.getName() + ".Namespace", true),
+                            new Namespace(op.getName() + ".VolNamespace", false,
+                                    new HashMap<>((HashMap<String, Object>) ModuleUtils.getOption(thisPointer, "VolatileNamespacePrototype"))));
+                    users.add(u);
+                    return u;
+                }
+            }, "GetUser")) return false;
+            if (!ModuleUtils.registerKernelCall(thisPointer, new Function<Boolean>() {
+                public Boolean run(Object... args) {
+                    assert args[0] instanceof OfflinePlayer;
 
-        // Requirement: Load YAMLManager before this.
-        @Override
-        public int init() {
-            if (!List.class.isInstance($.globalNS.get("Users"))) {
-                Logger.error(this, "'Users' type invalid in global namespace, UserManager load failure");
-                return 1;
-            }
-            Logger.debug(this, "Loading users", $.DL_INFO);
-            users.clear();
-            for (HashMap<String, Object> userRep : (List<HashMap<String, Object>>) $.globalNS.get("Users")) {
-                User u = (User) YAMLManager.fromRepresentation(userRep, User.class);
-                users.add(u);
-                Logger.debug(this, "Loaded existing user: " + u.asPlayer().getName(), $.DL_DETAILS);
-            }
-            Logger.debug(this, "User load complete", $.DL_INFO);
-            return 0;
+                }
+            }, "RemoveUser")) ;
         }
+    };
+    public final Function<Boolean> exit = new Function<Boolean>() {
 
         @Override
-        public int exit() {
-            List<HashMap<String, Object>> hm = (List<HashMap<String, Object>>) $.globalNS.get("Users");
-            Logger.debug(this, "Exporting users", $.DL_INFO);
+        public Boolean run(Object... unused) {
+            final List<HashMap<String, Object>> hm = (List<HashMap<String, Object>>) $.globalNS.get("Users");
             hm.clear();
             for (User u : users) {
-                hm.add((HashMap<String, Object>) YAMLManager.toRepresentation(u));
-                Logger.debug(this, "Exported user: " + u.asPlayer().getName(), $.DL_DETAILS);
+                HashMap<String, Object> serd = (HashMap<String, Object>) Serializer.serialize(u);
+                if (serd == null) {
+                    Logger.error(thisPointer, "Unable to serialize user " + u.asPlayer().getName());
+                    return false;
+                }
+                hm.add(serd);
+                Logger.debug(thisPointer, "Exported user: " + u.asPlayer().getName(), $.DL_PROGRESS);
             }
-            Logger.debug(this, "User export complete", $.DL_INFO);
-            return 0;
-        }
-
-
-        @Override
-        public String getComponentName() {
-            return "UserManager";
-        }
-
-        @Override
-        public List<ModuleAgent> getDependencies() {
-            return Collections.singletonList(YAMLManager.Ma);
-        }
-
-        @Override
-        public boolean useVariables() {
             return true;
         }
-
-        @Override
-        public boolean useEvents() {
-            return true;
-        }
-
-        @Override
-        public HashMap<String, Event> getEvents() {
-            return new HashMap<String, Event>() {{
-                put("AddUser", new Event());
-                put("RemoveUser", new Event());
-            }};
-        }
-
     };
-    private static ModuleResources Resources = KMI.registerModule(Ma);
-
-    public static User getUser(OfflinePlayer op) {
-        for (User u : users) {
-            if (u.asPlayer().getUniqueId().equals(op.getUniqueId())) {
-                return u;
-            }
-        }
-        // Create new user
-        Logger.info(Ma, "Creating new user: " + op.getName());
-        User u = new User(op,
-                new Namespace(op.getName() + ".Attributes", true),
-                new Namespace(op.getName() + ".Namespace", false,
-                        (HashMap<String, Object>) nsHome.get("NSVolatilePrototype")));
-        users.add(u);
-        return u;
-    }
+    public final String[] dependencies = {};
 }
