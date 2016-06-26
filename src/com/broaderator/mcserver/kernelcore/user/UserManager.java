@@ -36,7 +36,7 @@ public class UserManager extends Module {
                     assert args[0] instanceof OfflinePlayer;
                     final OfflinePlayer op = (OfflinePlayer) args[0];
                     for (User u : users) {
-                        if (u.asPlayer().getUniqueId().equals(op.getUniqueId())) return u;
+                        if (u.asPlayer().equals(op)) return u;
                     }
                     // Create new user
                     Logger.fine(thisPointer, "Creating new user named " + op.getName());
@@ -51,7 +51,19 @@ public class UserManager extends Module {
             if (!ModuleUtils.registerKernelCall(thisPointer, new Function<Boolean>() {
                 public Boolean run(Object... args) {
                     assert args[0] instanceof OfflinePlayer;
-
+                    final OfflinePlayer op = (OfflinePlayer) args[0];
+                    User pointer = null;
+                    for (User u : users) {
+                        if (u.asPlayer().equals(op)) {
+                            pointer = u;
+                            break;
+                        }
+                    }
+                    if (pointer == null) {
+                        Logger.warn(thisPointer, "Attempt to call RemoveUser with a nonexistent user");
+                        return false;
+                    }
+                    return users.remove(pointer);
                 }
             }, "RemoveUser")) ;
         }
