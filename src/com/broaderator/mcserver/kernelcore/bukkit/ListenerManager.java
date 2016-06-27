@@ -6,12 +6,12 @@ import com.broaderator.mcserver.kernelcore.moduleBase.Module;
 public class ListenerManager extends Module {
     public final String name = "ListenerManager";
     public final Function<Boolean> init = new Function<Boolean>() {
-        public Boolean run() {
+        public Boolean run(Object... unused) {
             return null;
         }
     };
     public final Function<Boolean> exit = new Function<Boolean>() {
-        public Boolean run() {
+        public Boolean run(Object... unused) {
             return null;
         }
     };

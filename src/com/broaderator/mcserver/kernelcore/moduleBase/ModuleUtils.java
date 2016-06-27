@@ -40,6 +40,10 @@ public class ModuleUtils {
         return null;
     }
 
+    public static Event getEventByOwner(final String moduleName, final String eventName) {
+        return getEvent(getModule(moduleName), eventName);
+    }
+
     private static boolean moduleInQueue(final String name){
         return getModuleInQueue(name) != null;
     }
