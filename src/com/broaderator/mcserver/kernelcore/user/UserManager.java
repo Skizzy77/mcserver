@@ -16,7 +16,7 @@ import java.util.List;
 public class UserManager extends Module {
     private final UserManager thisPointer = this;
     public final String name = "UserManager";
-    private static List<User> users = new ArrayList<>();
+    public static List<User> users = new ArrayList<>();
     public final Function<Boolean> init = new Function<Boolean>() {
         public Boolean run(Object... unused) {
             if (!List.class.isInstance($.globalNS.get("Users"))) {

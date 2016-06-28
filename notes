@@ -10,6 +10,7 @@ Global Volatile Namespace Hierarchy \
 	    | UserValid -> Function<Boolean> (String Username)
 	    | HashCheck
 	| KernelInitialized -> Boolean
+	| RecentEvents -> ? extends Set<String>
 
 Global Namespace Hierarchy \
 	| Logging \
