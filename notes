@@ -23,7 +23,7 @@ Global Namespace Hierarchy \
 	| Modules \
 	    | UserManager \
 	        | Options -> HashMap<String, Object>
-	| Permissions ->
+	| Permissions -> List["Guest", "Privileged", "Trusted", "Developer", "Owner", "KernelAuthority"]
 	| Commands \
 		| AFK \
 			| Permission -> -1 (all)

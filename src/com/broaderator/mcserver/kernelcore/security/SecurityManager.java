@@ -12,6 +12,10 @@ public class SecurityManager extends Module {
         @Override
         public Boolean run(Object... args) {
             ModuleUtils.registerKernelCall(This, new Function<Boolean>() {
+                @Override
+                public Boolean run(Object... args) {
+                    return null;
+                }
             }, "_GetCommandPermission");
         }
     };

@@ -77,6 +77,69 @@ public class ManagementInterface extends Module { // special module that initial
                 return $.globalVolNS.get("RecentEvents");
             }
         });
+        put("SetNamespaceItem", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+                if (args.length < 4) {
+                    return "Arguments Required: SetNamespaceItem <Normal/Volatile> <Namespace directory> <type> <value>";
+                }
+                if (args[0].equals("Normal")) {
+
+                } else if (args[0].equals("Volatile")) {
+
+                } else {
+                    return "Invalid argument \"" + args[0] + "\"";
+                }
+            }
+        });
+        put("BlockCall", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+                if (args.length < 1 || !String.class.isInstance(args[0]))
+                    return "Arguments Required: BlockCall <Call Name>";
+                if (!CallManagement.DisabledCalls.contains(args[0]))
+                    CallManagement.DisabledCalls.add((String) args[0]);
+                return CallManagement.DisabledCalls.contains(args[0]);
+            }
+        });
+        put("BlockCommand", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+                if (args.length < 1 || !String.class.isInstance(args[0]))
+                    return "Argument Required: BlockCommand <Command Name>";
+                // interact with CommandManager
+            }
+        });
+        put("SetDebugLevel", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+            }
+        });
+        put("SetUserPermission", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+            }
+        });
+        put("SetUserNamespaceItem", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+            }
+        });
+        put("Sandbox-Remove", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+            }
+        });
+        put("Sandbox-Insert", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+            }
+        });
+        put("Sandbox-List", new Function<Object>() {
+            @Override
+            public Object run(Object... args) {
+            }
+        });
     }};
     public final Function<Boolean> init = new Function<Boolean>() {
         @Override

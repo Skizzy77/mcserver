@@ -1,5 +1,8 @@
 package com.broaderator.mcserver.kernelcore;
 
+import com.broaderator.mcserver.kernelcore.moduleBase.Function;
+import org.bukkit.Bukkit;
+
 import java.util.HashMap;
 import java.util.Random;
 
@@ -26,5 +29,22 @@ public class _ {
             hmap.put((String) param[i], param[i+1]);
         }
         return hmap;
+    }
+
+    public static Object getAttribute(Object source, String name) {
+        try {
+            return source.getClass().getDeclaredField(name).get(source);
+        } catch (Exception e) {
+            Bukkit.getLogger().severe("getAttribute failed, exception attached");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static final Function<Boolean> EmptyFunction = new Function<Boolean>() {
+        @Override
+        public Boolean run(Object... args) {
+            return true;
+        }
     }
 }
