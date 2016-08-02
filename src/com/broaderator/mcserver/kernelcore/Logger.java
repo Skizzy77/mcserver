@@ -41,7 +41,7 @@ public class Logger {
     }
 
     private static String _(KernelObject source, String msg, String level) {
-        String format = ((String) $.globalNS.get("Logging.Format"));
+        String format = ((String) _.getNS("Logging.Format"));
         format = format.replaceAll("%ident%", ((String) $.globalNS.get("Resources.KernelName")));
         format = format.replaceAll("%compname%", source.getComponentName());
         format = format.replaceAll("%level%", level);

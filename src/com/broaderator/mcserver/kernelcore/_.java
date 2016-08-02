@@ -46,5 +46,25 @@ public class _ {
         public Boolean run(Object... args) {
             return true;
         }
+    };
+
+    public static Object getNS(String str) {
+        return $.globalNS.get(str);
+    }
+
+    public static boolean putNS(String str, Object val) {
+        return $.globalNS.put(str, val);
+    }
+
+    public static Object getVns(String str) {
+        return $.globalVolNS.get(str);
+    }
+
+    public static boolean putVns(String str, Object val) {
+        return $.globalVolNS.put(str, val);
+    }
+
+    public static Object kernelCall(String name, Object... args) {
+        return CallManagement.Call(name, args);
     }
 }

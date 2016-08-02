@@ -1,4 +1,8 @@
 Global Volatile Namespace Hierarchy \
+    | Apps \
+        | Essentials \
+            | Resources \
+                | ConsoleAFK -> false
 	| Modules \
 	    | ObjectManager \
 	        | Resources
@@ -13,6 +17,11 @@ Global Volatile Namespace Hierarchy \
 	| RecentEvents -> ? extends Set<String>
 
 Global Namespace Hierarchy \
+    | Apps \
+        | Essentials \
+            | Resources \
+                | WarpLocations \
+                    | Spawn -> Location(w,x,y,z)
 	| Logging \
 		| Format -> "%ident%:%compname% [%level%]: %msg%"
 		| DebugLevel -> 1
@@ -20,9 +29,28 @@ Global Namespace Hierarchy \
 		| KernelName -> "MCKernel"
 		| Owner -> ArrayList<String>{"fffaf","_Broadwell"}
 		| WorkingDirectory -> String "/home/michael/SpigotCache/plugins/ServerKernel"
+		| ConsoleDisplayName -> "Console"
 	| Modules \
 	    | UserManager \
 	        | Options -> HashMap<String, Object>
+	    | ChatManager \
+	        | StyleProfiles -> List<HashMap<String, Object>>
+	            > \
+	                name -> Mineplex
+	                prefixColor -> c%blue%
+	                prefixChar -> "> "
+	                textColor -> c%gray%
+	            > \
+	                name -> Fiery
+	                prefixColor -> c%gold%
+	                prefixChar -> "»"
+	                textColor -> c%yellow%
+	            > \
+	                name -> Aqua
+	                prefixColor -> c%aqua%
+	                prefixChar -> ": "
+	                textColor -> c%darkAqua%
+
 	| Permissions -> List["Guest", "Privileged", "Trusted", "Developer", "Owner", "KernelAuthority"]
 	| Commands \
 		| AFK \
@@ -35,7 +63,10 @@ Kernel module registry in Volatile Namespace \
 	| Resources \
 		| <options>: <value>
 	| Events -> Event
-	
+
+User namespace template \
+    | Nickname -> "Godwell"
+    | Permission ->
 Kernel Module Interface features (Interface with ModuleAgent):
 - Define/access kernel Calls (global, directive in VOLATILE namespace)
 - Utilities (Hash)

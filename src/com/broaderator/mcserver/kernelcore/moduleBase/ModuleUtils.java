@@ -84,7 +84,7 @@ public class ModuleUtils {
         }
     }
 
-    public static boolean registerKernelCall(final Module m, final Function<? extends Object> run, String name) {
+    public static boolean registerKernelCall(final Module m, final Function<?> run, String name) {
         if (!moduleValid(((String) _.getAttribute(m, "name")))) {
             Logger.error(KCResources.Object,
                     StringFormat.f(

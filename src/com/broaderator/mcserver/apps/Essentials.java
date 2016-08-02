@@ -1,17 +1,23 @@
 package com.broaderator.mcserver.apps;
 
+import com.broaderator.mcserver.kernelcore.CallManagement;
 import com.broaderator.mcserver.kernelcore.api.App;
+import com.broaderator.mcserver.kernelcore.api.AppUtils;
 import com.broaderator.mcserver.kernelcore.api.Command;
 import com.broaderator.mcserver.kernelcore.api.HelpArticle;
 import com.broaderator.mcserver.kernelcore.moduleBase.Function;
 import com.broaderator.mcserver.kernelcore.security.Permission;
+import com.broaderator.mcserver.kernelcore.user.User;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Essentials extends App {
+    private Essentials alias = this;
+    public String name = "Essentials";
     public List<? extends Command> commands = Arrays.asList(
             new Command() {
                 public List<String> label = Collections.singletonList("afk");
@@ -23,8 +29,11 @@ public class Essentials extends App {
                     @Override
                     public Boolean run(Object... args) {
                         if (args[0] instanceof ConsoleCommandSender) {
-
+                            AppUtils.setCommandAttribute(alias, "afk", "ConsoleAFK", true);
+                        } else if (args[0] instanceof Player) {
+                            ((User) CallManagement.Call("GetUser", (Player) args[0]))._put("AFK", true);
                         }
+                        //format
                     }
                 }
             },

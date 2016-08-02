@@ -36,6 +36,10 @@ public class User extends SecuredSubstance {
         return nsVolatile.put(dir, val);
     }
 
+    public String getName() {
+        return asPlayer().getName();
+    }
+
     public Namespace getNamespace() {
         return ns;
     }

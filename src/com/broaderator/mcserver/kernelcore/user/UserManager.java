@@ -1,9 +1,6 @@
 package com.broaderator.mcserver.kernelcore.user;
 
-import com.broaderator.mcserver.kernelcore.$;
-import com.broaderator.mcserver.kernelcore.Logger;
-import com.broaderator.mcserver.kernelcore.Namespace;
-import com.broaderator.mcserver.kernelcore.Serializer;
+import com.broaderator.mcserver.kernelcore.*;
 import com.broaderator.mcserver.kernelcore.moduleBase.Function;
 import com.broaderator.mcserver.kernelcore.moduleBase.Module;
 import com.broaderator.mcserver.kernelcore.moduleBase.ModuleUtils;
@@ -48,7 +45,24 @@ public class UserManager extends Module {
                     return u;
                 }
             }, "GetUser")) return false;
-            if (!ModuleUtils.registerKernelCall(thisPointer, new Function<Boolean>() {
+            if (!ModuleUtils.registerKernelCall(thisPointer, new Function<String>() {
+                public String run(Object... args) {
+                    User p;
+                    if (args[0] instanceof User)
+                        p = (User) args[0];
+                    else {
+                        assert args[0] instanceof OfflinePlayer;
+                        p = (User) CallManagement.Call("GetUser", args[0]);
+                    }
+                    if (p == null) {
+                        Logger.warn(thisPointer, "Unable to obtain displayName of a user because of GetUser failure");
+                        return ((OfflinePlayer) args[0]).getName();
+                    } else {
+                        return (String) p.get("Nickname");
+                    }
+                }
+            }, "GetUserDisplayName")) return false;
+            return ModuleUtils.registerKernelCall(thisPointer, new Function<Boolean>() {
                 public Boolean run(Object... args) {
                     assert args[0] instanceof OfflinePlayer;
                     final OfflinePlayer op = (OfflinePlayer) args[0];
@@ -65,7 +79,8 @@ public class UserManager extends Module {
                     }
                     return users.remove(pointer);
                 }
-            }, "RemoveUser")) ;
+            }, "RemoveUser");
+
         }
     };
     public final Function<Boolean> exit = new Function<Boolean>() {
