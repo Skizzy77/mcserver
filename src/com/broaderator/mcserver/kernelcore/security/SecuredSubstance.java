@@ -6,6 +6,6 @@ public class SecuredSubstance implements KernelObject {
     public int SecurityLevel;
 
     public String getComponentName() {
-        return "GenericSecuredSubstance@" + this.hashCode();
+        return "GenericSecuredSubstance#" + this.hashCode();
     }
 }

@@ -6,13 +6,22 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class Namespace implements KernelObject {
+    public static final String PATH_DELIMITER = ".";
+
     public static String joinPath(String... paths) {
         String output = "";
-        for (String path : paths) {
-            output += path;
-            if (!output.endsWith(".")) output += ".";
+        for (int i = 0; i < paths.length; i++) {
+            while (paths[i].endsWith(PATH_DELIMITER)) {
+                paths[i] = paths[i].substring(0, paths[i].length() - PATH_DELIMITER.length());
+            }
+            while (paths[i].startsWith(PATH_DELIMITER)) {
+                paths[i] = paths[i].substring(PATH_DELIMITER.length());
+            }
+            if (i != 0)
+                output += PATH_DELIMITER;
+            output += paths[i];
         }
-        return output.substring(0, output.length() - 1);
+        return output;
     }
 
     public HashMap<String, Object> storage = new HashMap<>();

@@ -23,14 +23,24 @@ public class ChatManager extends Module {
                     // args: String profileName
                     assert args.length == 1;
                     for (HashMap<String, Object> profile : (List<HashMap<String, Object>>) ModuleUtils.getOption(This, "StyleProfiles")) {
-                        if (profile.get("name") == args[0]) {
+                        if (profile.get("name").equals(args[0])) {
                             Logger.debug(This, "_GetStyleProfile: queried profile found: " + args[0], $.DL_DETAILS);
                             return profile;
                         }
                     }
                     Logger.warn(This, "_GetStyleProfile: unknown style profile queried: " + args[0]);
+                    return null;
                 }
             }, "_GetStyleProfile")) return false;
+            if (!ModuleUtils.registerKernelCall(This, new Function<Boolean>() {
+                public Boolean run(Object... args) {
+                    // args: HashMap<String, Object> profile
+                    assert args.length == 1 && args[0] instanceof HashMap;
+                    for (HashMap<String, Object> profile : (List<HashMap<String, Object>>) ModuleUtils.getOption(This, "StyleProfiles")) {
+                        if (((HashMap) args[0]).get("name").equals(args[0]))
+                    }
+                }
+            }, "_AddStyleProfile")) return false;
             if (!ModuleUtils.registerKernelCall(This, new Function<String>() {
                 public String run(Object... args) {
                     return null;

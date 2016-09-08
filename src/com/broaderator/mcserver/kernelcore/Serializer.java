@@ -19,7 +19,7 @@ public class Serializer {
             new $_User()
     );
 
-    private static final List<Class<? extends Object>> QUALIFIED_TYPES = Arrays.asList(
+    private static final List<Class<?>> QUALIFIED_TYPES = Arrays.asList(
             Map.class,
             String.class,
             Set.class,
@@ -34,8 +34,11 @@ public class Serializer {
         for (Class type : QUALIFIED_TYPES) {
             if (type.isInstance(o)) return 1;
         }
+        if (o instanceof Serializable) {
+            return 2;
+        }
         for (Module m : modules) {
-            if (m.getType().isInstance(o)) return 2 + modules.indexOf(m);
+            if (m.getType().isInstance(o)) return 3 + modules.indexOf(m);
         }
         return -1;
     }
@@ -47,7 +50,7 @@ public class Serializer {
     public static Object serialize(Object obj) {
         int type = _getType(obj);
         if (type < 0) {
-            Logger.warn(KCResources.Object, "Serializer: Failed to serialize object of type: " + obj.getClass().getName());
+            Logger.warn(KCResources.Object, "Serializer: unable to serialize object of type: " + obj.getClass().getName());
             return null;
         }
         switch (type) {
@@ -55,8 +58,10 @@ public class Serializer {
                 return null;
             case 1:
                 return obj;
+            case 2:
+                return ((Serializable) obj).represent();
             default:
-                final Module pointer = modules.get(type - 2);
+                final Module pointer = modules.get(type - 3);
                 assert pointer.getType().isInstance(obj);
                 return pointer.serialize(obj);
         }
