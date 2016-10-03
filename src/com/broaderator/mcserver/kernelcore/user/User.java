@@ -4,16 +4,17 @@ import com.broaderator.mcserver.kernelcore.Namespace;
 import com.broaderator.mcserver.kernelcore.security.SecuredSubstance;
 import org.bukkit.OfflinePlayer;
 
-public class User extends SecuredSubstance {
+public class User implements SecuredSubstance {
     private OfflinePlayer op;
     private Namespace ns;
     private Namespace nsVolatile;
+    private int securityLevel;
 
     public User(OfflinePlayer op, Namespace ns, Namespace nsVolatile) {
         this.op = op;
         this.ns = ns;
         this.nsVolatile = nsVolatile;
-        this.SecurityLevel = (Integer) ns.get("Permission");
+        this.securityLevel = (Integer) ns.get("Permission");
     }
 
     public Object get(String str) {
@@ -44,7 +45,7 @@ public class User extends SecuredSubstance {
         return ns;
     }
 
-    public Namespace getVolatileNS() {
+    public Namespace getVolatileNamespace() {
         return nsVolatile;
     }
 
@@ -56,5 +57,10 @@ public class User extends SecuredSubstance {
     @Override
     public boolean equals(Object o) {
         return o instanceof User && ((User) o).asPlayer().getUniqueId().equals(this.asPlayer().getUniqueId());
+    }
+
+    @Override
+    public int getSecurityLevel() {
+        return this.securityLevel;
     }
 }

@@ -1,9 +1,13 @@
 package com.broaderator.mcserver.kernelcore.namespace;
 
 import com.broaderator.mcserver.kernelcore.KernelObject;
+import com.broaderator.mcserver.kernelcore.Serializable;
+import com.broaderator.mcserver.kernelcore._;
 import com.broaderator.mcserver.kernelcore.util.StringFormat;
 
-public class Value implements NamespaceElement, KernelObject {
+import java.util.HashMap;
+
+public class Value implements NamespaceElement, KernelObject, Serializable {
     private String id;
     Object value;
 
@@ -22,7 +26,7 @@ public class Value implements NamespaceElement, KernelObject {
 
     @Override
     public String getID() {
-        return null;
+        return this.id;
     }
 
     @Override
@@ -32,5 +36,18 @@ public class Value implements NamespaceElement, KernelObject {
 
     public String toString() {
         return getComponentName();
+    }
+
+    @Override
+    public HashMap<String, Object> represent() {
+        return _.createHashmap(
+                "type", "NamespaceValue",
+                "value", this.value
+        );
+    }
+
+    @Override
+    public String getType() {
+        return "NamespaceValue";
     }
 }

@@ -28,6 +28,7 @@ public class SecurityManager extends Module {
                 @Override
                 public Permission run(Object... args) {
                     assert args[0] instanceof User && args[1] instanceof Permission;
+                    return null; // todo: unfinished
                 }
             }, "_SetUserPermission");
             return true;

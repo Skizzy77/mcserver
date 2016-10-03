@@ -1,28 +1,51 @@
 package com.broaderator.mcserver.test;
 
+import com.broaderator.mcserver.kernelcore.Serializer;
 import com.broaderator.mcserver.kernelcore.namespace.Namespace;
+import org.yaml.snakeyaml.Yaml;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Test {
-    private static Namespace namespace = new Namespace("TestNamespace");
+    private static Namespace namespace = new Namespace("TestNamespace", false);
 
     public static void main(String[] args) {
-        List<Integer> b = new LinkedList<>();
-        b.add(2);
-        b.add(5);
-        b.add(83);
-        b.add(133);
-        b.add(2);
-        b.add(53);
-        b.add(2);
-        remove(b, 2);
-        System.out.println(b);
+        AbstractBase ab = new Class1("ThisIsClass1!");
+        System.out.println(ab.a);
+        ab = new Class2("ThisIsClass2!");
+        System.out.println(ab.a);
     }
 
-    private static void remove(List<Integer> list, Integer c) {
-        while (list.contains(c))
-            list.remove(c);
+
+}
+
+
+abstract class AbstractBase {
+    public final String a;
+
+    AbstractBase(String a) {
+        this.a = a;
+    }
+    abstract void run();
+}
+
+class Class1 extends AbstractBase {
+
+    public Class1(String a) {
+        super(a);
+    }
+
+    @Override
+    void run() {
+
+    }
+}
+
+class Class2 extends AbstractBase {
+
+    public Class2(String a) {
+        super(a);
     }
 }

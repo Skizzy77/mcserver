@@ -3,6 +3,7 @@ package com.broaderator.mcserver.kernelcore.namespace;
 import com.broaderator.mcserver.kernelcore.$;
 import com.broaderator.mcserver.kernelcore.KernelObject;
 import com.broaderator.mcserver.kernelcore.Logger;
+import com.broaderator.mcserver.kernelcore.Serializer;
 import com.broaderator.mcserver.kernelcore.util.StringFormat;
 
 import java.util.Arrays;
@@ -13,10 +14,9 @@ public class Namespace extends Node implements KernelObject {
     public static final String PATH_DELIMITER = ".";
     // questionable options
     private static final boolean CREATE_DIRECTORY_DURING_setPath = true;
-    private boolean checkSerializable = true;
 
     public Namespace(String id, boolean serialize) {
-        super(id);
+        super(id, serialize);
     }
 
     @Override
@@ -25,22 +25,40 @@ public class Namespace extends Node implements KernelObject {
     }
 
     public void setPath(String path, Object value) {
-
+        if(this.checkSerializable && !Serializer.isSerializable(value)){
+            throw new UnsupportedOperationException("setPath: provided value, " + value + ", is not serializable");
+        }
+        String[] parsedPath = path.split(Pattern.quote(PATH_DELIMITER));
+        navigateThrough(
+                utilSubArray(parsedPath, 0, parsedPath.length-1),
+                CREATE_DIRECTORY_DURING_setPath).setValue(parsedPath[parsedPath.length-1], value);
     }
 
-    private Node navigateThrough(String path, boolean createNodes) {
-        String[] pathElems = path.split(Pattern.quote(PATH_DELIMITER));
+    public Node getNode(String path){
+        return navigateThrough(path.split(Pattern.quote(PATH_DELIMITER)), false);
+    }
+
+    public Object getValueByPath(String path){
+        String[] parsedPath = path.split(Pattern.quote(PATH_DELIMITER));
+        return navigateThrough(utilSubArray(parsedPath, 0, parsedPath.length-1), false);
+    }
+
+    public Node createNodes(String path){
+        return navigateThrough(path.split(Pattern.quote(PATH_DELIMITER)), true);
+    }
+
+    private Node navigateThrough(String[] pathElems, boolean createNodes) {
+        /*String[] pathElems = path.split(Pattern.quote(PATH_DELIMITER));*/
         Node currentNode = this;
-        for (int i = 0; i < pathElems.length; i++) {
-            if (!currentNode.childrenIDs().contains(pathElems[i])) {
+        for (String pathElem : pathElems) {
+            if (!currentNode.childrenIDs().contains(pathElem)) {
                 if (createNodes) {
-                    currentNode.addChild(new Node(pathElems[i]));
-                    Logger.debug(this, StringFormat.f("created new node {0} under {1}", pathElems[i], pathElems[i - 1]), $.DL_DETAILS);
+                    currentNode.addChild(new Node(pathElem, checkSerializable));
                 } else {
-                    throw new NullPointerException("in path " + path + ", " + pathElems[i] + " doesn't exist under the previous node, " + currentNode.getID());
+                    throw new NullPointerException("in path " + Arrays.toString(pathElems) + ", " + pathElem + " doesn't exist under the previous node, " + currentNode.getID());
                 }
             }
-            currentNode = currentNode.getChild(pathElems[i]);
+            currentNode = currentNode.getChild(pathElem);
         }
         return currentNode;
     }

@@ -19,13 +19,12 @@ public class Essentials extends App {
     private Essentials alias = this;
     public String name = "Essentials";
     public List<? extends Command> commands = Arrays.asList(
-            new Command() {
-                public List<String> label = Collections.singletonList("afk");
-                public boolean requireRawInput = false;
-                public boolean allowConsole = true;
-                public Permission requiredPerm = new Permission("Guest");
-                public HelpArticle help = new HelpArticle("/afk", Collections.singletonList("/afk"), "To toggle your Away From Keyboard status");
-                public Function<Boolean> onRun = new Function<Boolean>() {
+            new Command(Collections.singletonList("afk"),
+                false,
+                true, /* TODO: reformat Essentials */
+                new Permission("Guest"),
+                new HelpArticle("/afk", Collections.singletonList("/afk"), "To toggle your Away From Keyboard status"),
+                new Function<Boolean>() {
                     @Override
                     public Boolean run(Object... args) {
                         if (args[0] instanceof ConsoleCommandSender) {
@@ -34,82 +33,129 @@ public class Essentials extends App {
                             ((User) CallManagement.Call("GetUser", (Player) args[0]))._put("AFK", true);
                         }
                         //format
+                        // todo: not done
+                        return null;
                     }
                 }
-            },
-            new Command() {
-                public List<String> label = Arrays.asList("tell", "whisper", "w", "m", "msg", "t");
-                public boolean requireRawInput = true;
-                public boolean allowConsole = true;
-                public Permission requiredPerm = new Permission("Guest");
-                public HelpArticle help = new HelpArticle("/tell <selscript> <message..>",
-                        Arrays.asList("/tell ExamplePlayer Hello World!", "/msg ExamplePlayer Sup", "/whisper Console Good morning", "/m %all Hello!"),
-                        "To communicate in private");
-            },
-            new Command() {
-                public List<String> label = Collections.singletonList("warp");
-                public boolean requireRawInput = false;
-                public boolean allowConsole = false;
-                public Permission requiredPerm = new Permission("Guest");
-                public HelpArticle help = new HelpArticle(
-                        "/warp [set] <location>",
-                        Arrays.asList("/warp World.Spawn", "/warp Event.Anniversary", "/warp Monument", "/warp set MyHouse"),
-                        "To teleport yourself to a defined global location");
-            },
-            new Command() {
-                public List<String> label = Arrays.asList("locate", "l");
-                public boolean requireRawInput = false;
-                public boolean allowConsole = false;
-                public Permission requiredPerm = new Permission("Privileged");
-                public HelpArticle help = new HelpArticle(
-                        "/locate [set] <location>",
-                        Arrays.asList("/locate home", "/locate EpicBuilding"),
-                        "To teleport yourself to a defined personal location (available only to you)"
-                );
-            },
-            new Command() {
-                public List<String> label = Collections.singletonList("home");
-                public boolean requireRawInput = false;
-                public boolean allowConsole = false;
-                public Permission requiredPerm = new Permission("Privileged");
-                public HelpArticle help = new HelpArticle(
-                        "/home [set]",
-                        Arrays.asList("/home", "/home set"),
-                        "To teleport to or set your home location"
-                );
-            },
-            new Command() {
-                public List<String> label = Arrays.asList("gamemode", "gm");
-                public boolean requireRawInput = false;
-                public boolean allowConsole = false;
-                public Permission requiredPerm = new Permission("Guest");
-                public HelpArticle help = new HelpArticle(
-                        "/gm <creative/survival/adventure/spectator/c/s/a/p/1/0/2/3> [selScript]",
-                        Arrays.asList("/gm c", "/gm 3", "/gm adventure", "/gm creative %all"),
-                        "To set your gamemode to your specified choice"
-                );
-            },
-            new Command() {
-                public List<String> label = Collections.singletonList("hat");
-                public boolean requireRawInput = false;
-                public boolean allowConsole = false;
-                public Permission requiredPerm = new Permission("Guest");
-                public HelpArticle help = new HelpArticle(
-                        "/hat",
-                        Collections.singletonList("/hat"),
-                        "To set the current item in your inventory as your hat"
-                );
-            },
-            new Command() {
-                public List<String> label = Collections.singletonList("macro");
-                public boolean requireRawInput = false;
-                public boolean allowConsole = true;
-                public Permission requiredPerm = new Permission("Developer");
-                public HelpArticle help = new HelpArticle(
-                        "/macro <name> <command...>",
-                        Arrays.asList("/macro WeatherClear weather clear", "/macro SwearToEveryone tell %all You *****es!"),
-                        "To define macros for convenience"
-                );
-            }
+            ),
+            new Command(Arrays.asList("tell", "whisper", "w", "m", "msg", "t"),
+                    true,
+                    true,
+                    new Permission("Guest"),
+                    new HelpArticle("/tell <selscript> <message..>",
+                            Arrays.asList("/tell ExamplePlayer Hello World!", "/msg ExamplePlayer Sup", "/whisper Console Good morning", "/m %all Hello!"),
+                            "To communicate in private"),
+                    new Function<Boolean>() {
+                        @Override
+                        public Boolean run(Object... args) {
+                            // TODO: 9/8/16
+                            return null;
+                        }
+                    }
+            ),
+            new Command(
+                    Collections.singletonList("warp"),
+                    false,
+                    false,
+                    new Permission("Guest"),
+                    new HelpArticle(
+                            "/warp [set] <location>",
+                            Arrays.asList("/warp World.Spawn", "/warp Event.Anniversary", "/warp Monument", "/warp set MyHouse"),
+                            "To teleport yourself to a defined global location"),
+                    new Function<Boolean>() {
+                        @Override
+                        public Boolean run(Object... args) {
+                            // TODO: 9/8/16
+                            return null;
+                        }
+                    }
+            )  ,
+            new Command(
+                    Arrays.asList("locate", "l"),
+                    false,
+                    false,
+                    new Permission("Privileged"),
+                    new HelpArticle(
+                            "/locate [set] <location>",
+                            Arrays.asList("/locate home", "/locate EpicBuilding"),
+                            "To teleport yourself to a defined personal location (available only to you)"
+                    ),
+                    new Function<Boolean>() {
+                        @Override
+                        public Boolean run(Object... args) {
+                            // todo: not done
+                            return null;
+                        }
+                    }
+            ),
+            new Command(
+                    Collections.singletonList("home"),
+                    false,
+                    false,
+                    new Permission("Privileged"),
+                    new HelpArticle(
+                            "/home [set]",
+                            Arrays.asList("/home", "/home set"),
+                            "To teleport to or set your home location"
+                    ),
+                    new Function<Boolean>() {
+                        @Override
+                        public Boolean run(Object... args) {
+                            // todo: not done
+                            return null;
+                        }
+                    }
+            ),
+            new Command(
+                    Arrays.asList("gamemode", "gm"),
+                    false,
+                    false,
+                    new Permission("Guest"),
+                    new HelpArticle(
+                            "/gm <creative/survival/adventure/spectator/c/s/a/p/1/0/2/3> [selScript]",
+                            Arrays.asList("/gm c", "/gm 3", "/gm adventure", "/gm creative %all"),
+                            "To set your gamemode to your specified choice"
+                    ),
+                    new Function<Boolean>() {
+                        @Override
+                        public Boolean run(Object... args) {
+                            return null;
+                        }
+                    }
+            ),
+            new Command(
+                    Collections.singletonList("hat"),
+                    false,
+                    false,
+                    new Permission("Guest"),
+                    new HelpArticle(
+                            "/hat",
+                            Collections.singletonList("/hat"),
+                            "To set the current item in your inventory as your hat"
+                    ),
+                    new Function<Boolean>() {
+                        @Override
+                        public Boolean run(Object... args) {
+                            return null;
+                        }
+                    }
+            ),
+            new Command(
+                    Collections.singletonList("macro"),
+                    false,
+                    true,
+                    new Permission("Developer"),
+                    new HelpArticle(
+                            "/macro <name> <command...>",
+                            Arrays.asList("/macro WeatherClear weather clear", "/macro SwearToEveryone tell %all You *****es!"),
+                            "To define macros for convenience"
+                    ),
+                    new Function<Boolean>() {
+                        @Override
+                        public Boolean run(Object... args) {
+                            return null;
+                        }
+                    }
+            )
     );
 }

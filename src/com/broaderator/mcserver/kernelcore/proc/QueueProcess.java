@@ -7,7 +7,7 @@ import com.broaderator.mcserver.kernelcore.KernelObject;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class QueueProcess extends Process {
-    private int status;
+    /*private int status;
     private Processor<Object> processor;
     private Object wait = new Object();
     private ConcurrentLinkedQueue<Object> queue = new ConcurrentLinkedQueue<>();
@@ -45,5 +45,5 @@ public class QueueProcess extends Process {
 
     public int getStatus() {
         return status;
-    }
+    }*/
 }

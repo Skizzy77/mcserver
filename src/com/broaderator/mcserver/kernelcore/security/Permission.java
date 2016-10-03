@@ -35,6 +35,14 @@ public class Permission implements Serializable {
 
     @Override
     public HashMap<String, Object> represent() {
-        return _.createHashmap("type", "Permission", "index", index);
+        return _.createHashmap(
+                "serializer_type", "Permission",
+                "index", index
+        );
+    }
+
+    @Override
+    public String getType() {
+        return "Permission";
     }
 }

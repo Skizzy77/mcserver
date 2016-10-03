@@ -9,8 +9,9 @@ import java.util.HashMap;
 
 public class ManagementInterface extends Module { // special module that initializes manually after all other modules
     public final String name = "ManagementInterface";
-    private final HashMap<String, Function<Object>> modules = new HashMap<String, Function<Object>>() {{
-        put("GetModules", new Function<Object>() {
+    private final HashMap<String, Function<Object>> modules = new HashMap<String, Function<Object>>() {
+        {
+        /*put("GetModules", new Function<Object>() {
             @Override
             public Object run(Object... args) {
                 return ((HashMap<String, Object>) $.globalVolNS.get("Modules")).keySet();
@@ -149,7 +150,7 @@ public class ManagementInterface extends Module { // special module that initial
                 public String run(Object... args) {
                     if (args.length < 1)
                         return "Error: Missing command";
-                    /*
+                    *//*
                     Functions of the Kernel Management Interface:
                     - Display stats
                       - Modules loaded (GetModules)
@@ -174,10 +175,11 @@ public class ManagementInterface extends Module { // special module that initial
                         - List items from sandbox (Sandbox-List)
                     - Experimental features
                       - tbd
-                     */
+                     *//*
 
                 }
             }, "SubmitManagementCommand");
+        }*/
         }
     };
 }

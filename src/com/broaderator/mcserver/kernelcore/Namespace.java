@@ -83,7 +83,7 @@ public class Namespace implements KernelObject {
             Bukkit.getLogger().warning("KernelInternalError::Failed to locate context '" + direxp + "'");
             return false;
         }
-        Object value = YAMLManager.toRepresentation(newValue);
+        Object value = Serializer.serialize(newValue);
         if (value == null && tofile) {
             Bukkit.getLogger().warning("KernelInternalError::Yaml incompatible object: " + newValue);
             return false;

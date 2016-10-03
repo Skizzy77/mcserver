@@ -19,10 +19,6 @@ public class ChatStyleProfile {
         this.format = format;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String toString() {
         return StringFormat.f("<ChatStyleProfile#{0}: {1}>", this.hashCode(), this.name);
     }
@@ -36,36 +32,39 @@ public class ChatStyleProfile {
         } else return false;
     }
 
-    public ChatColor prefixColor() {
+    public String getName() {
+        return name;
+    }
+
+    public ChatColor getPrefixColor() {
         return prefixColor;
     }
 
-    public void prefixColor(ChatColor prefixColor) {
+    protected void setPrefixColor(ChatColor prefixColor) {
         this.prefixColor = prefixColor;
     }
 
-    public ChatColor textColor() {
+    public ChatColor getTextColor() {
         return textColor;
     }
 
-    public void textColor(ChatColor textColor) {
+    protected void setTextColor(ChatColor textColor) {
         this.textColor = textColor;
     }
 
-    public ChatColor nameColor() {
+    public ChatColor getNameColor() {
         return nameColor;
     }
 
-    public void nameColor(ChatColor nameColor) {
+    protected void setNameColor(ChatColor nameColor) {
         this.nameColor = nameColor;
     }
 
-    public String format() {
+    public String getFormat() {
         return format;
     }
 
-    public void format(String format) {
+    protected void setFormat(String format) {
         this.format = format;
     }
-
 }

@@ -37,8 +37,10 @@ public class ChatManager extends Module {
                     // args: HashMap<String, Object> profile
                     assert args.length == 1 && args[0] instanceof HashMap;
                     for (HashMap<String, Object> profile : (List<HashMap<String, Object>>) ModuleUtils.getOption(This, "StyleProfiles")) {
-                        if (((HashMap) args[0]).get("name").equals(args[0]))
+                        if (((HashMap) args[0]).get("name").equals(args[0])) {}// todo: not done
                     }
+                    // todo: not done
+                    return null;
                 }
             }, "_AddStyleProfile")) return false;
             if (!ModuleUtils.registerKernelCall(This, new Function<String>() {
@@ -51,6 +53,7 @@ public class ChatManager extends Module {
                     // args: CommandSender target, String prefix, String message, optional int type
                     Integer type = args.length == 4 ? (Integer) args[3] : 0;
                     // TODO
+                    return null;
                 }
             }, "Chat");
         }

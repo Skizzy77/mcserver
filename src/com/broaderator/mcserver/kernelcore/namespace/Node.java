@@ -1,20 +1,21 @@
 package com.broaderator.mcserver.kernelcore.namespace;
 
-import com.broaderator.mcserver.kernelcore.$;
-import com.broaderator.mcserver.kernelcore.KernelObject;
-import com.broaderator.mcserver.kernelcore.Logger;
+import com.broaderator.mcserver.kernelcore.*;
 import com.broaderator.mcserver.kernelcore.util.StringFormat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class Node implements KernelObject, NamespaceElement {
+public class Node implements KernelObject, NamespaceElement, Serializable {
     private String id;
     private List<Value> values = new ArrayList<>();
     private List<Node> children = new ArrayList<>();
+    boolean checkSerializable = true;
 
-    Node(String id) {
+    Node(String id, boolean checkSerializable) {
         this.id = id;
+        this.checkSerializable = checkSerializable;
     }
 
     public boolean is(String otherId) {
@@ -62,11 +63,22 @@ public class Node implements KernelObject, NamespaceElement {
     }
 
     public boolean addValue(Value v) {
+        if (this.checkSerializable && !Serializer.isSerializable(v.get())){
+            throw new UnsupportedOperationException("unable to serialize adding value of " + v.get().toString());
+        }
         if (!this.containsValue(v.getID())) {
             this.values.add(v);
             return true;
         } else {
             throw new NodeAlreadyExistsException(this.getComponentName() + ": Value ID " + v.getID() + " already exists in values");
+        }
+    }
+
+    public void setValue(String id, Object newValue){
+        if (!this.containsValue(id)){
+            this.addValue(new Value(id, newValue));
+        }else{
+            this.getValue(id).set(newValue);
         }
     }
 
@@ -132,5 +144,20 @@ public class Node implements KernelObject, NamespaceElement {
 
     public String toString() {
         return getComponentName();
+    }
+
+    @Override
+    public HashMap<String, Object> represent() {
+        return _.createHashmap(
+                "type", "NamespaceNode",
+                "values", Serializer.serialize(this.values),
+                "children", Serializer.serialize(this.children),
+                "id", this.id
+        );
+    }
+
+    @Override
+    public String getType() {
+        return "NamespaceNode";
     }
 }

@@ -50,8 +50,7 @@ public class Serializer {
     public static Object serialize(Object obj) {
         int type = _getType(obj);
         if (type < 0) {
-            Logger.warn(KCResources.Object, "Serializer: unable to serialize object of type: " + obj.getClass().getName());
-            return null;
+            throw new UnsupportedOperationException("unable to serialize object of type " + obj.getClass().getSimpleName());
         }
         switch (type) {
             case 0:

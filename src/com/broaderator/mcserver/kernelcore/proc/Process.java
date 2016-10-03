@@ -7,7 +7,7 @@ import com.broaderator.mcserver.kernelcore.util.StringFormat;
 
 
 public class Process extends Thread {
-    int pid;
+    /*int pid;
     KernelObject owner;
 
     public Process(KernelObject origin, Runnable run, String name) {
@@ -38,5 +38,5 @@ public class Process extends Thread {
 
     public int getStatus() {
         return this.isAlive() ? 1 : 0;
-    }
+    }*/
 }

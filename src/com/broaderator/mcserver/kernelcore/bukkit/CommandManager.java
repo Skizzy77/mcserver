@@ -10,5 +10,5 @@ public class CommandManager extends Module {
         public Boolean run(Object... args) {
             return null;
         }
-    }
+    };
 }
