@@ -1,18 +1,13 @@
 package com.broaderator.mcserver.test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class TestMain {
 
-	// All tests inherit this interface
-	public interface Test {
-		void test();
-	}
-
 	public static List<Test> testQueue = Arrays.asList(
-		new MessageBuilderTester()
+		new MessageBuilderTester(),
+		new LoggerTester()
 	);
 
 	public static void main(String[] args) {
@@ -21,5 +16,10 @@ public class TestMain {
 			test.test();
 		}
 		System.out.println("TestMain >> Testing done");
+	}
+
+	// All tests inherit this interface
+	public interface Test {
+		void test();
 	}
 }

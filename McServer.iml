@@ -23,5 +23,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.8-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bukkit:bukkit:1.8.8-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.17" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.4" level="project" />
   </component>
 </module>

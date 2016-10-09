@@ -26,4 +26,10 @@ public enum Format {
 	public String toSequence() {
 		return String.format("\u001B[%dm", this.escapeCode);
 	}
+
+	// mistakes were made
+	@Override
+	public String toString() {
+		return toSequence();
+	}
 }
