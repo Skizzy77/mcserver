@@ -1,0 +1,16 @@
+Saved namespace items:
+
+Chat.ActiveChatStyle -> ChatStyle name
+Chat.ManualColoring -> boolean (false/true)
+
+Volatile namespace items:
+
+Chat.Styles -> ImmutableSet<ChatStyle>
+
+User namespace items:
+
+Permission -> permission level (0, 1, 2, 3, 4, 5)
+Rank -> (in-game) colored string (Optional)
+HomeLocation -> location representation (Optional)
+ColorPreference -> name of ChatColor (Optional)
+Birthday -> DateTime of pattern "dd/MM/yyyy"

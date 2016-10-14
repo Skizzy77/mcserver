@@ -45,13 +45,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- SnakeYAML -->
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>1.17</version>
-        </dependency>
-
         <!-- Joda-Time -->
         <dependency>
             <groupId>joda-time</groupId>

@@ -7,7 +7,8 @@ public class TestMain {
 
 	public static List<Test> testQueue = Arrays.asList(
 		new MessageBuilderTester(),
-		new LoggerTester()
+		// new LoggerTester(),
+		new GameMessageTester()
 	);
 
 	public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class TestMain {
 	}
 
 	// All tests inherit this interface
-	public interface Test {
+	protected interface Test {
 		void test();
 	}
 }
