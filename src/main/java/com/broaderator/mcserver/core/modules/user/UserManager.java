@@ -52,6 +52,10 @@ public class UserManager implements Module {
 
 		} catch (IOException die) {
 
+			System.err.println("There was an error while reading user profiles and data. Permission/existence?");
+			System.err.println("Error stack trace below:");
+			die.printStackTrace();
+
 		}
 	}
 

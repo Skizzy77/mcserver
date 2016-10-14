@@ -1,32 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ce97c4b5-e446-4b03-a007-070f8541256e" name="Default" comment="Bukkit &amp; User modules">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/namespace_notes" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/$.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/Chat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/ChatStyle.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/Message.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/UserManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/util/Permission.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/util/Rank.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/util/package-info.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/broaderator/mcserver/test/GameMessageTester.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/Namespace.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/broaderator/mcserver/core/Namespace.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_17.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_15.xml" />
+    <list default="true" id="ce97c4b5-e446-4b03-a007-070f8541256e" name="Default" comment="UserManager">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/broaderator/mcserver/core/BukkitPlugin.class" afterPath="$PROJECT_DIR$/target/classes/com/broaderator/mcserver/core/BukkitPlugin.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/broaderator/mcserver/core/logger/Logger$Event.class" afterPath="$PROJECT_DIR$/target/classes/com/broaderator/mcserver/core/logger/Logger$Event.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/broaderator/mcserver/core/logger/Logger.class" afterPath="$PROJECT_DIR$/target/classes/com/broaderator/mcserver/core/logger/Logger.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/com/broaderator/mcserver/test/TestMain$Test.class" afterPath="$PROJECT_DIR$/target/test-classes/com/broaderator/mcserver/test/TestMain$Test.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/com/broaderator/mcserver/test/TestMain.class" afterPath="$PROJECT_DIR$/target/test-classes/com/broaderator/mcserver/test/TestMain.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/McServer.iml" afterPath="$PROJECT_DIR$/McServer.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/BukkitPlugin.java" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/BukkitPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/broaderator/mcserver/test/TestMain.java" afterPath="$PROJECT_DIR$/src/test/java/com/broaderator/mcserver/test/TestMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/UserManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/UserManager.java" />
     </list>
     <ignored path="McServer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,8 +35,10 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/UserManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="45" column="58" selection-start-line="45" selection-start-column="58" selection-end-line="45" selection-end-column="58" />
-              <folding />
+              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -125,7 +109,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/Chat.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -146,7 +130,7 @@
       <file leaf-file-name="ChatStyle.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/ChatStyle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40466926">
+            <state vertical-scroll-proportion="0.4377432">
               <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -199,11 +183,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/util/Rank.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/util/Permission.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/ChatStyle.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/UserManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/User.java" />
         <option value="$PROJECT_DIR$/namespace_notes" />
         <option value="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/Message.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/Chat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/UserManager.java" />
       </list>
     </option>
   </component>
@@ -868,7 +852,13 @@
       <option name="project" value="LOCAL" />
       <updated>1475983828061</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Bukkit &amp; User modules">
+      <created>1476423052127</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1476423052127</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -932,7 +922,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="58" selection-start-line="42" selection-start-column="58" selection-end-line="42" selection-end-column="58" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1191,14 +1183,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/UserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="58" selection-start-line="45" selection-start-column="58" selection-end-line="45" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1235,7 +1219,17 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/Chat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/user/UserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1244,7 +1238,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/broaderator/mcserver/core/modules/bukkit/ChatStyle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40466926">
+        <state vertical-scroll-proportion="0.4377432">
           <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
