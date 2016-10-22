@@ -11,6 +11,7 @@
 * App API
 * Game engine
 * SecurityManager
+* Minimal process/thread manager
 
 ## Ideas
 
