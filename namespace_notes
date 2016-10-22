@@ -2,6 +2,7 @@ Saved namespace items:
 
 Chat.ActiveChatStyle -> ChatStyle name
 Chat.ManualColoring -> boolean (false/true)
+Logger.DebugLevel -> short
 
 Volatile namespace items:
 

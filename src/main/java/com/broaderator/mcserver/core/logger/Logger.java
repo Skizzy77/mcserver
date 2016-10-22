@@ -1,5 +1,6 @@
 package com.broaderator.mcserver.core.logger;
 
+import com.broaderator.mcserver.core.$;
 import com.broaderator.mcserver.core.GlobalConstants;
 import com.broaderator.mcserver.core.Module;
 import org.joda.time.DateTime;
@@ -26,6 +27,12 @@ public class Logger implements Module {
 		// for now, console and file.
 		System.out.println(output);
 		fileStream.println(output);
+	}
+
+	public static void debug(short level, String message) {
+		if (Short.valueOf($.savedNS.getProperty("Logger.DebugLevel")) <= level) {
+			System.out.println(Format.Cyan + "[Debug] " + message + Format._Reset);
+		}
 	}
 
 	public void start() {

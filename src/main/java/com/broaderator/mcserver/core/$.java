@@ -12,12 +12,19 @@ import java.util.logging.Logger;
 
 // shorthand class, inspired by jQuery
 public class $ {
+	// debug levels
+	public static final short DEBUG_NORMAL = 5;
+	public static final short DEBUG_DETAIL = 3;
+	public static final short DEBUG_TRIVIA = 1;
+
+
 	public static final Logger log = Bukkit.getLogger();
 	public static final HashMap<String, Object> ns = new HashMap<>();
 	public static final Properties savedNS = new Properties();
 	protected static final String FAIL = "Core error caught! The plugin will not run as expected. Stop it as fast as you can!";
 
 	static {
+		// as early as possible
 		loadProperties(savedNS, GlobalConstants.HomeFolder + "prop.properties");
 	}
 
